@@ -11,8 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
     list << "Date" << "Next day" << "Previous day" << "is Leap" << "Week number" << "Days till birth" << "Duration";
     ui->tableWidget->setHorizontalHeaderLabels(list);
 
-    ui->lineEditBirth->setInputMask("9D.BD.000D");
-    ui->lineEditAddItem->setInputMask("9D.BD.000D");
+    ui->lineEditBirth->setInputMask("99.99.9999");
+    ui->lineEditAddItem->setInputMask("99.99.9999");
+    dateSize=0;
 }
 
 MainWindow::~MainWindow()
@@ -73,11 +74,11 @@ void MainWindow::on_addPrev_clicked()
     for (int i = 0; i < dateSize; i++)
     {
         Date day = dateArr[i].PreviousDay();
-      if (day.m_year == 0) {
-          QTableWidgetItem* date = new QTableWidgetItem(QString("31.12.0001 Before our era)"));
-          ui->tableWidget->setItem(i, 2, date);
-          continue;
-      }
+        if (day.m_year == 0) {
+            QTableWidgetItem* date = new QTableWidgetItem(QString("31.12.0001 Before our era)"));
+            ui->tableWidget->setItem(i, 2, date);
+            continue;
+        }
         ui->tableWidget->setItem(i, 2, day.convertIntoTableItem());
     }
 }
@@ -127,7 +128,10 @@ void MainWindow::on_addDur_clicked()
 void MainWindow::on_addBith_clicked()
 {
     Date bithadayDate;
-
+    if(ui->lineEditAddItem->hasAcceptableInput()==false){
+        QMessageBox::critical(this, "Error!", "Input format:\ndd.mm.yyyy");
+        return;
+    }
 
     QString strBirthday = (ui->lineEditBirth->text());
     QString year = strBirthday;
@@ -166,36 +170,63 @@ void MainWindow::on_addBith_clicked()
 Date *MainWindow::AddArrElements(Date *arr, int size)
 {
     if (size== 0)
-        {
-            arr = new Date[size + 1];
-        }
-        else
-        {
-            Date* arrTmp = new Date[size + 1];
+    {
+        arr = new Date[size + 1];
+    }
+    else
+    {
+        Date* arrTmp = new Date[size + 1];
 
-            for (int i = 0; i < size; i++)
-            {
-                arrTmp[i] = arr[i];
-            }
-            delete[] arr;
-            arr = arrTmp;
+        for (int i = 0; i < size; i++)
+        {
+            arrTmp[i] = arr[i];
         }
+        delete[] arr;
+        arr = arrTmp;
+    }
     return arr;
 }
 
 void MainWindow::on_addDate_clicked()
 {
     Date date;
+    if(ui->lineEditAddItem->hasAcceptableInput()==false){
+        QMessageBox::critical(this, "Error!", "Input format:\ndd.mm.yyyy");
+        return;
+    }
     QString strDate = (ui->lineEditAddItem->text());
-    date.m_day = strDate.left(2).toInt();
-    date.m_month = strDate.mid(3, 2).toInt();
-    date.m_year = strDate.right(4).toInt();
-    date.doValid();
-    dateArr = AddArrElements(dateArr, dateSize);
-    dateArr[dateSize] = date;
-    ui->tableWidget->insertRow(dateSize);
-    ui->tableWidget->setItem(dateSize, 0, (dateArr[dateSize]).convertIntoTableItem());
-    dateSize++;
+    QString year = strDate;
+    year.remove(0, 6);
+    while (year[0] == '0')
+        year.remove(0, 1);
+
+    QString month = strDate;
+    month.remove(0, 3); month.remove(2, 5);
+    if (month[0] == '0') month.remove(0, 1);
+
+    QString day = strDate;
+    day.remove(2, 8);
+    if (day[0] == '0') day.remove(0, 1);
+    if(month.toInt() > 12  || month.toInt() < 1)
+    {
+        QMessageBox::critical(this, "Error!", "Input format:\ndd.mm.yyyy");
+    }
+    else if(day.toInt() < 1 || day.toInt() > 31)
+    {
+        QMessageBox::critical(this, "Error!", "Input format:\ndd.mm.yyyy");
+    }else {
+        QString strDate = (ui->lineEditAddItem->text());
+        date.m_day = strDate.left(2).toInt();
+        date.m_month = strDate.mid(3, 2).toInt();
+        date.m_year = strDate.right(4).toInt();
+        date.doValid();
+        dateArr = AddArrElements(dateArr, dateSize);
+        dateArr[dateSize] = date;
+        ui->tableWidget->insertRow(dateSize);
+        ui->tableWidget->setItem(dateSize, 0, (dateArr[dateSize]).convertIntoTableItem());
+        dateSize++;
+    }
+
 }
 
 
@@ -221,7 +252,7 @@ void MainWindow::on_getDataFromFile_clicked()
         return;
     }
     std::ifstream file(fileName.toStdString());
-    for (dateSize = 0; !file.eof(); dateSize++)
+    for (dateSize = 0; !file.fail(); dateSize++)
     {
         ui->tableWidget->insertRow(dateSize);
         dateArr = AddArrElements(dateArr, dateSize);
@@ -247,14 +278,14 @@ void MainWindow::on_saveBtn_clicked()
         {
             fileName = saveName;
             std::fstream outFile;
-            outFile.open(fileName.toStdString(), std::ios::in | std::ios::out);
+            outFile.open(fileName.toStdString(), std::ios::out);
             for (int i = 0; i < dateSize; i++)
             {
                 outFile << dateArr[i] << std::endl;
             }
         } else {
-            std::fstream outFile(saveName.toStdString(), std::ios::app);
-            outFile.seekp(0, std::ios::end);
+            std::fstream outFile(saveName.toStdString(), std::ios::out|std::ios::app);
+            //outFile.seekp(0, std::ios::end);
             for (int i = dateFromFile; i < dateSize; i++)
             {
                 outFile << std::endl;
