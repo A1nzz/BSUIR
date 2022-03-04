@@ -14,10 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEditBirth->setInputMask("99.99.9999");
     ui->lineEditAddItem->setInputMask("99.99.9999");
     dateSize=0;
+    dateArr = new Date[dateSize];
 }
 
 MainWindow::~MainWindow()
 {
+    delete[] dateArr;
+
     delete ui;
 }
 
@@ -34,18 +37,21 @@ void MainWindow::on_addNext_clicked()
 std::istream& operator>>(std::istream& os, Date& dt) {
 
     os >> dt.m_day;
+    if (os.fail()){
+        dt.m_day = 0;
+    }
     os.ignore();
+
     os >> dt.m_month;
     os.ignore();
     os >> dt.m_year;
+
+
     return os;
 }
 
 std::fstream& operator<<(std::fstream& fout, Date& date)
 {
-    QString day = QString::number(date.m_day);
-    QString month = QString::number(date.m_month);
-    QString year = QString::number(date.m_year);
 
     if (date.m_day < 10){
         fout << "0" << date.m_day << ".";
@@ -128,7 +134,7 @@ void MainWindow::on_addDur_clicked()
 void MainWindow::on_addBith_clicked()
 {
     Date bithadayDate;
-    if(ui->lineEditAddItem->hasAcceptableInput()==false){
+    if(ui->lineEditBirth->hasAcceptableInput()==false){
         QMessageBox::critical(this, "Error!", "Input format:\ndd.mm.yyyy");
         return;
     }
@@ -159,34 +165,13 @@ void MainWindow::on_addBith_clicked()
         bithadayDate.m_year = strBirthday.right(4).toInt();
         bithadayDate.doValid();
         for (int i = 0; i < dateSize; i++) {
-            long day = dateArr[i].DaysTillYourBithday(bithadayDate);
-            QTableWidgetItem* d = new QTableWidgetItem(QString("%1 d").arg(day));
+            long date = dateArr[i].DaysTillYourBithday(bithadayDate);
+            QTableWidgetItem* d = new QTableWidgetItem(QString("%1 d").arg(date));
             ui->tableWidget->setItem(i, 5, d);
         }
     }
 
 }
-
-Date *MainWindow::AddArrElements(Date *arr, int size)
-{
-    if (size== 0)
-    {
-        arr = new Date[size + 1];
-    }
-    else
-    {
-        Date* arrTmp = new Date[size + 1];
-
-        for (int i = 0; i < size; i++)
-        {
-            arrTmp[i] = arr[i];
-        }
-        delete[] arr;
-        arr = arrTmp;
-    }
-    return arr;
-}
-
 void MainWindow::on_addDate_clicked()
 {
     Date date;
@@ -229,6 +214,26 @@ void MainWindow::on_addDate_clicked()
 
 }
 
+Date *MainWindow::AddArrElements(Date *arr, int size)
+{
+    if (size== 0)
+    {
+        arr = new Date[size + 1];
+    }
+    else
+    {
+        Date* arrTmp = new Date[size + 1];
+
+        for (int i = 0; i < size; i++)
+        {
+            arrTmp[i] = arr[i];
+        }
+        delete[] arr;
+        arr = arrTmp;
+    }
+    return arr;
+}
+
 
 void MainWindow::on_addCurrDate_clicked()
 {
@@ -245,18 +250,30 @@ void MainWindow::on_addCurrDate_clicked()
 
 void MainWindow::on_getDataFromFile_clicked()
 {
+    dateSize = 0;
+    delete[] dateArr;
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(0);
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open a file with dates"), "D:/OAiP 2sem/Task3", tr("Text File (*.txt)"));
     if (fileName.isEmpty())
     {
+        dateSize = 1;
+        dateArr = new Date[1];
         return;
     }
     std::ifstream file(fileName.toStdString());
-    for (dateSize = 0; !file.fail(); dateSize++)
+    for (dateSize = 0; !(file.eof()); dateSize++)
     {
-        ui->tableWidget->insertRow(dateSize);
+
         dateArr = AddArrElements(dateArr, dateSize);
         file >> dateArr[dateSize];
+        QFile file(fileName);
+        if (dateArr[dateSize].m_day == 0) {
+            QMessageBox::critical(this, "Error!", "Incorrect File");
+            return;
+        }
+        ui->tableWidget->insertRow(dateSize);
         dateArr[dateSize].doValid();
         ui->tableWidget->setItem(dateSize, 0, (dateArr[dateSize]).convertIntoTableItem());
     }

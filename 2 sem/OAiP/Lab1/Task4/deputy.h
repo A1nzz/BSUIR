@@ -2,19 +2,22 @@
 #define DEPUTY_H
 
 #include <QString>
+#include <string>
 
 class Deputy
 {
     friend class MainWindow;
 public:
-    Deputy(int districtNumber = 13, QString fullName = "Mamchenko Kirill", QString party = "Labour",
-           int age = 18, QString profession = "programmer", int incomeYear = 15);
+    Deputy(int districtNumber = 13, std::string fullName = "Mamchenko Kirill", std::string party = "Labour",
+           int age = 18, std::string profession = "programmer", int incomeYear = 15);
+    friend std::istream& operator>>(std::istream&, Deputy&);
+    friend std::fstream& operator<<(std::fstream&, Deputy&);
 private:
     int m_districtNumber;
-    QString m_fullName;
-    QString m_party;
+    std::string m_fullName;
+    std::string m_party;
     int m_age;
-    QString m_profession;
+    std::string m_profession;
     int m_incomeYear;
 };
 

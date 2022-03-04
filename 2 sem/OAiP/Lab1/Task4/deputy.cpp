@@ -1,6 +1,6 @@
 #include "deputy.h"
 
-Deputy::Deputy(int districtNumber, QString fullName, QString party, int age, QString profession, int incomeYear)
+Deputy::Deputy(int districtNumber, std::string fullName, std::string party, int age, std::string profession, int incomeYear)
 {
     m_districtNumber = districtNumber;
     m_fullName = fullName;

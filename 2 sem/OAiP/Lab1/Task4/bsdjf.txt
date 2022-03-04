@@ -1,0 +1,28 @@
+District: 2
+Full name: Kirill
+Party: Communistical
+Age: 34
+Profession: progr
+Income ini a last year: 231
+
+District: 3
+Full name: Oleg
+Party: Liberal ebani
+Age: 12
+Profession: batrack
+Income ini a last year: 23
+
+District: 6
+Full name: Ilya
+Party: Communistical
+Age: 54
+Profession: progr
+Income ini a last year: 2
+
+District: 9
+Full name: Keril
+Party: Communistical
+Age: 98
+Profession: chinila
+Income ini a last year: 3
+
