@@ -12,13 +12,11 @@ public class Program
         {
             Console.WriteLine("Yes");
             return 1;
-
         }
         else if (x * x + y * y == 49 || x * x + y * y == 9)
         {
             Console.WriteLine("On the border");
             return 2;
-
         }
         else
         {

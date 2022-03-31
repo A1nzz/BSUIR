@@ -16,7 +16,7 @@ public:
     ~Stack();                         // деструктор
 
     inline void push(const T&);     // поместить элемент в вершину стека
-    inline T pop();                   // удалить элемент из вершины стека и вернуть его
+    inline void pop();                   // удалить элемент из вершины стека и вернуть его
     inline const T& Peek(int) const; // n-й элемент от вершины стека
     inline int getStackSize() const;  // получить размер стека
     inline T* getPtr() const;         // получить указатель на стек
@@ -66,7 +66,7 @@ inline void Stack<T>::push(const T& value)
 
 // функция удаления элемента из стека
 template <typename T>
-inline T Stack<T>::pop()
+inline void Stack<T>::pop()
 {
     // проверяем размер стека
     assert(top > 0); // номер текущего элемента должен быть больше 0
