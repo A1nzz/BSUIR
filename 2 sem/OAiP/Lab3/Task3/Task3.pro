@@ -11,12 +11,10 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    polish.cpp \
     stack.cpp
 
 HEADERS += \
     mainwindow.h \
-    polish.h \
     stack.h
 
 FORMS += \

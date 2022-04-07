@@ -198,3 +198,38 @@ void DoubleList::pop_front()
 {
     erase(1);
 }
+
+
+void DoubleList:: swap ( int* a, int* b ) { int t = *a; *a = *b; *b = t; }
+
+Staff* DoubleList:: partition(Staff *l, Staff *h)
+{
+    int x = h->number;
+    Staff *i = l->prev;
+    for (Staff *j = l; j != h; j = j->next)
+    {
+        if (j->number <= x)
+        {
+            i = (i == NULL)? l : i->next;
+            swap(&(i->number), &(j->number));
+        }
+    }
+    i = (i == NULL)? l : i->next;
+    swap(&(i->number), &(h->number));
+    return i;
+}
+
+void DoubleList::_quickSort(Staff* l, Staff *h)
+{
+    if (h != NULL && l != h && l != h->next)
+    {
+        Staff *p = partition(l, h);
+        _quickSort(l, p->prev);
+        _quickSort(p->next, h);
+    }
+}
+
+void DoubleList::quickSort()
+{
+    _quickSort(head, tail);
+}

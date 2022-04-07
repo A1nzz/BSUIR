@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>812</width>
-    <height>746</height>
+    <height>789</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -326,6 +326,19 @@
     </property>
     <property name="text">
      <string>Print by Working Experience</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sortBrn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>680</y>
+      <width>361</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort</string>
     </property>
    </widget>
   </widget>

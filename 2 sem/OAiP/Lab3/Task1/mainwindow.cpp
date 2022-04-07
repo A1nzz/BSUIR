@@ -388,3 +388,10 @@ void MainWindow::on_printByWorkingHistoryBtn_clicked()
     }
 }
 
+
+void MainWindow::on_sortBrn_clicked()
+{
+    list->quickSort();
+    printList();
+}
+

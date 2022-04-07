@@ -47,6 +47,8 @@ private slots:
 
     void on_printByWorkingHistoryBtn_clicked();
 
+    void on_sortBrn_clicked();
+
 private:
     int membersFromFile;
     QString fileName;

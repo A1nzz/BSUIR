@@ -25,6 +25,14 @@ public:
     void pop_back();
     void push_front(std::string fullname, int number, std::string post, std::string date);
     void pop_front();
+
+    void swap ( int* a, int* b );
+
+    Staff* partition(Staff *l, Staff *h);
+
+    void _quickSort(Staff* l, Staff *h);
+
+    void quickSort();
 };
 
 #endif // DOUBLELIST_H
