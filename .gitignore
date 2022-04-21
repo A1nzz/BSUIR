@@ -58,6 +58,7 @@ Thumbs.db
 *.opensdf
 *.vcxproj
 *vcxproj.*
+obj/
 
 # MinGW generated files
 *.Debug
@@ -74,3 +75,6 @@ Thumbs.db
 *.db
 *.db-shm
 *.suo
+
+*.pch
+*.json
