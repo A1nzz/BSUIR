@@ -1,0 +1,15 @@
+D:\BSUIR\2 sem\C#\Lab6\Lab6\bin\Debug\net6.0\Lab6.exe
+D:\BSUIR\2 sem\C#\Lab6\Lab6\bin\Debug\net6.0\Lab6.deps.json
+D:\BSUIR\2 sem\C#\Lab6\Lab6\bin\Debug\net6.0\Lab6.runtimeconfig.json
+D:\BSUIR\2 sem\C#\Lab6\Lab6\bin\Debug\net6.0\Lab6.dll
+D:\BSUIR\2 sem\C#\Lab6\Lab6\bin\Debug\net6.0\Lab6.pdb
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.csproj.AssemblyReference.cache
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.GeneratedMSBuildEditorConfig.editorconfig
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.AssemblyInfoInputs.cache
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.AssemblyInfo.cs
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.csproj.CoreCompileInputs.cache
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.dll
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\refint\Lab6.dll
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.pdb
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\Lab6.genruntimeconfig.cache
+D:\BSUIR\2 sem\C#\Lab6\Lab6\obj\Debug\net6.0\ref\Lab6.dll
