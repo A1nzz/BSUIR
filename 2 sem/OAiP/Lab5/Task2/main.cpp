@@ -1,11 +1,10 @@
-#include "parser.h"
-#include "stdafx.h"
+#include "Task2.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Parser w;
+    Task2 w;
     w.show();
     return a.exec();
 }

@@ -24,6 +24,8 @@ namespace Lab5
             riga.BuyRoom(5);
             riga.LogOut();
             riga.LogIn("Pavel");
+            Console.WriteLine(riga.getPriceByName("Ivan"));
+            riga.ShowFreeRooms();
         }
     }
 }

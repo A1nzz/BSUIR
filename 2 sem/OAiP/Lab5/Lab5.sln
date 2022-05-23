@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "queue", "queue\queue.vcxproj", "{01397BF3-CCEA-4CF5-91D1-86C106086138}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dList", "dList\dList.vcxproj", "{2CA73B08-28E4-4029-B6C1-97F46F751BB6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Task2", "Task2\Task2.vcxproj", "{9CBFC8ED-8B15-4C38-8A3D-0DD3A10ECA68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01397BF3-CCEA-4CF5-91D1-86C106086138}.Debug|x64.ActiveCfg = Debug|x64
+		{01397BF3-CCEA-4CF5-91D1-86C106086138}.Debug|x64.Build.0 = Debug|x64
+		{01397BF3-CCEA-4CF5-91D1-86C106086138}.Release|x64.ActiveCfg = Release|x64
+		{01397BF3-CCEA-4CF5-91D1-86C106086138}.Release|x64.Build.0 = Release|x64
+		{2CA73B08-28E4-4029-B6C1-97F46F751BB6}.Debug|x64.ActiveCfg = Debug|x64
+		{2CA73B08-28E4-4029-B6C1-97F46F751BB6}.Debug|x64.Build.0 = Debug|x64
+		{2CA73B08-28E4-4029-B6C1-97F46F751BB6}.Release|x64.ActiveCfg = Release|x64
+		{2CA73B08-28E4-4029-B6C1-97F46F751BB6}.Release|x64.Build.0 = Release|x64
+		{9CBFC8ED-8B15-4C38-8A3D-0DD3A10ECA68}.Debug|x64.ActiveCfg = Debug|x64
+		{9CBFC8ED-8B15-4C38-8A3D-0DD3A10ECA68}.Debug|x64.Build.0 = Debug|x64
+		{9CBFC8ED-8B15-4C38-8A3D-0DD3A10ECA68}.Release|x64.ActiveCfg = Release|x64
+		{9CBFC8ED-8B15-4C38-8A3D-0DD3A10ECA68}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F790C14-DBCD-4933-BA80-3963F9C6E71C}
+	EndGlobalSection
+EndGlobal

@@ -59,7 +59,7 @@
             {
                 if(cl.Name == name)
                 {
-                    curClient = new Client(name);
+                    curClient = cl;
                     return;
                 }
             }

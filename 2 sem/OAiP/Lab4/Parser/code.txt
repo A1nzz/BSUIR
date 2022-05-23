@@ -1,0 +1,8 @@
+int p();
+char p();
+
+int f();
+char f();
+
+double k(int);
+float k();
