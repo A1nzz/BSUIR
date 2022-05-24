@@ -1,4 +1,3 @@
-#pragma once
 #include <string>
 #include <list>
 #include <utility>
@@ -18,7 +17,11 @@ class Map
 		unsigned char height;
 
 		Node(std::pair<const KeyType, ValueType> k)
-			: data(k),parent(nullptr), left(nullptr), right(nullptr), height(1)
+			: data(k), parent(nullptr), left(nullptr), right(nullptr), height(1)
+		{
+		}
+
+		Node(KeyType k) : data(k, ValueType()), parent(nullptr), left(nullptr), right(nullptr), height(1)
 		{
 		}
 
@@ -88,24 +91,6 @@ class Map
 			return p; // балансировка не нужна
 		}
 
-		void insertToList(std::list<Node*>& list, Node* node) {
-			if (list.empty()) list.push_back(node);
-			else {
-				auto it = list.begin();
-				while (it != list.end() && *(it).key < node.key) ++it;
-				list.insert(it, node);
-			}
-		}
-
-		void removeFromList(std::list<Node*>& list, Node* node) {
-			for (auto it = list.begin(); it != list.end(); ++it) {
-				if (*it == node) {
-					list.erase(it);
-					return;
-				}
-			}
-		}
-
 		Node* insert(Node* p, std::pair<const KeyType, ValueType> k) // вставка пары k в дерево с корнем p
 		{
 			if (!p) return new Node(k);
@@ -166,7 +151,7 @@ class Map
 		}
 
 		void Print(bool with_new_line = false) {
-			std::cout << (data.second) + (with_new_line ? "\n" : "");
+			//std::cout << (data.second) + (with_new_line ? "\n" : "");
 		};
 
 		Node* SearchNode(KeyType key) {
@@ -245,6 +230,9 @@ class Map
 	class Iterator;
 	class Const_Iterator;
 	class Reverse_Iterator;
+	class ListIterator;
+	class Const_ListIterator;
+	class Reverse_ListIterator;
 public:
 	Map()
 		: root(nullptr)
@@ -255,13 +243,38 @@ public:
 	{
 		DestroyNode(root);
 	}
+
+private:
+	void insertToList(std::list<Node>& list, Node* node) {
+		if (list.empty()) list.push_back(*node);
+		else {
+			auto it = list.begin();
+			while (it != list.end() && (it->data.first) < (node->data.first)) ++it;
+			list.insert(it, *node);
+		}
+	}
+
+	void removeFromList(std::list<Node>& list, Node* node) {
+		for (auto it = list.begin(); it != list.end(); ++it) {
+			if (it->data.first == node->data.first) {
+				list.erase(it);
+				return;
+			}
+		}
+	}
+public:
+
 	void insert(std::pair<const KeyType, ValueType> k) {
 		root = root->insert(root, k);
 		if (root != nullptr) root->parent = nullptr;
+		Node* new_node_for_list = new Node(k);
+		insertToList(list, new_node_for_list);
 	}
 	void remove(KeyType key) {
 		root = root->remove(root, key);
 		if (root != nullptr) root->parent = nullptr;
+		Node* new_node_for_list = new Node(key);
+		removeFromList(list, new_node_for_list);
 	}
 
 	void clear() {
@@ -296,6 +309,32 @@ public:
 		return Reverse_Iterator(nullptr);
 	}
 
+	ListIterator list_begin() {
+		return ListIterator(list.begin());
+	}
+
+	ListIterator list_end() {
+		return ListIterator(list.end());
+	}
+
+	Const_ListIterator list_cbegin() {
+		return Const_ListIterator(list.begin());
+	}
+
+	Const_ListIterator list_cend() {
+		return Const_ListIterator(list.end());
+	}
+
+	Reverse_ListIterator list_rbegin() {
+		return Reverse_ListIterator(list.rbegin());
+	}
+
+	Reverse_ListIterator list_rend() {
+		return Reverse_ListIterator(list.rend());
+	}
+
+
+
 
 private:
 	static void DestroyNode(Node* node) {
@@ -307,7 +346,7 @@ private:
 	}
 public:
 	Node* root;
-	std::list<Node*> list;
+	std::list<Node> list;
 
 public:
 	class Iterator {
@@ -492,5 +531,108 @@ public:
 
 	};
 
-};
+	class ListIterator {
+	private:
+		typename std::list<Node>::iterator it;
+	public:
+		ListIterator(typename std::list<Node>::iterator i) : it(i) {}
+		ListIterator(const ListIterator& it) : it(it.it) {}
+		ListIterator& operator=(const ListIterator& it) {
+			this->it = it.it;
+			return *this;
+		}
+		Node& operator*() const { return *(it); }
+		Node* operator->() const { return &(*it); }
+		ListIterator& operator++() {
+			++it;
+			return *this;
+		}
+		ListIterator operator++(int) {
+			ListIterator it = *this;
+			++(*this);
+			return it;
+		}
+		ListIterator& operator--() {
+			--it;
+			return *this;
+		}
+		ListIterator operator--(int) {
+			ListIterator it = *this;
+			--(*this);
+			return it;
+		}
+		bool operator==(const ListIterator& it) const { return this->it == it.it; }
+		bool operator!=(const ListIterator& it) const { return this->it != it.it; }
 
+	};
+
+	class Const_ListIterator {
+	private:
+		typename std::list<Node>::const_iterator it;
+	public:
+		Const_ListIterator(typename std::list<Node>::const_iterator i) : it(i) {}
+		Const_ListIterator(const Const_ListIterator& it) : it(it.it) {}
+		Const_ListIterator& operator=(const Const_ListIterator& it) {
+			this->it = it.it;
+			return *this;
+		}
+		const Node& operator*() const { return *(it); }
+		const Node* operator->() const { return &(*it); }
+		Const_ListIterator& operator++() {
+			++it;
+			return *this;
+		}
+		Const_ListIterator operator++(int) {
+			Const_ListIterator it = *this;
+			++(*this);
+			return it;
+		}
+		Const_ListIterator& operator--() {
+			--it;
+			return *this;
+		}
+		Const_ListIterator operator--(int) {
+			Const_ListIterator it = *this;
+			--(*this);
+			return it;
+		}
+		bool operator==(const Const_ListIterator& it) const { return this->it == it.it; }
+		bool operator!=(const Const_ListIterator& it) const { return this->it != it.it; }
+
+
+	};
+
+	class Reverse_ListIterator {
+	private:
+		typename std::list<Node>::reverse_iterator it;
+	public:
+		Reverse_ListIterator(typename std::list<Node>::reverse_iterator i) : it(i) {}
+		Reverse_ListIterator(const Reverse_ListIterator& it) : it(it.it) {}
+		Reverse_ListIterator& operator=(const Reverse_ListIterator& it) {
+			this->it = it.it;
+			return *this;
+		}
+		Node& operator*() const { return *(it); }
+		Node* operator->() const { return &(*it); }
+		Reverse_ListIterator& operator++() {
+			++it;
+			return *this;
+		}
+		Reverse_ListIterator operator++(int) {
+			Reverse_ListIterator it = *this;
+			++(*this);
+			return it;
+		}
+		Reverse_ListIterator& operator--() {
+			--it;
+			return *this;
+		}
+		Reverse_ListIterator operator--(int) {
+			Reverse_ListIterator it = *this;
+			--(*this);
+			return it;
+		}
+		bool operator==(const Reverse_ListIterator& it) const { return this->it == it.it; }
+		bool operator!=(const Reverse_ListIterator& it) const { return this->it != it.it; }
+	};
+};
