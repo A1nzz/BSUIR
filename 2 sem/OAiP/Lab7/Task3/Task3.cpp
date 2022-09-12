@@ -7,7 +7,6 @@ Task3::Task3(QWidget *parent)
     ui.bitsetValue->setInputMask("999999");
     ui.posLE->setInputMask("999999");
     ui.resultLE->setText(QString::fromStdString(bs.to_string()));
-
 }
 
 void Task3::on_CreateBitSetBtn_clicked() {

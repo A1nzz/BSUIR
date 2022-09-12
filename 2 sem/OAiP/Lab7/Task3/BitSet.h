@@ -272,7 +272,6 @@ public:
 		trim();
 		return *this;
 	}
-
 	BitSet& operator>>=(size_t pos) noexcept { // shift right by _Pos, first by words then by bits
 		const auto _Wordshift = static_cast<ptrdiff_t>(pos / Bitsperword);
 		if (_Wordshift != 0) {
