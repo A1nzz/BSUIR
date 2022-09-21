@@ -30,22 +30,22 @@ namespace _153504_Mamchenko_Lab1.Entities
         {
             for (int i = 0; i < roomsList.Count; i++)
             {
-                if (roomsList[i].Number == numb)
+                if (roomsList[i]?.Number == numb)
                 {
                     if (curClient.BuyRoom)
                     {
                         Console.WriteLine("Клиент уже забронировал одну комнату");
                         return;
                     }
-                    else if (roomsList[i].IsFree)
+                    else if (roomsList[i]!.IsFree)
                     {
                         curClient.BuyRoom = true;
                         curClient.Room = roomsList[i];
-                        roomsList[i].IsFree = false;
+                        roomsList[i]!.IsFree = false;
                         Console.WriteLine("Клиент забронировал номер " + roomsList[i].Number);
                         return;
                     }
-                    else if (!roomsList[i].IsFree)
+                    else if (!roomsList[i]!.IsFree)
                     {
                         Console.WriteLine("Номер уже забронирован");
                         return;
@@ -59,7 +59,7 @@ namespace _153504_Mamchenko_Lab1.Entities
         {
             for (int i = 0; i< clientsList.Count; i++)
             {
-                if(clientsList[i].Name == name)
+                if(clientsList[i]?.Name == name)
                 {
                     curClient = clientsList[i];
                     return;
@@ -89,7 +89,7 @@ namespace _153504_Mamchenko_Lab1.Entities
             int price = 0;
             for (int i = 0; i < clientsList.Count; i++)
             {
-                if (clientsList[i].Name == name)
+                if (clientsList[i]?.Name == name)
                 {
                     price = clientsList[i].Room.Price;
                 }

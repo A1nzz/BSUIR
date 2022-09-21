@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _153504_Mamchenko_Lab1.Interfaces
+namespace _153504_Mamchenko_Lab2.Interfaces
 {
     internal interface ICustomCollection<T>
     {
@@ -12,7 +12,7 @@ namespace _153504_Mamchenko_Lab1.Interfaces
         public void Reset();
         public void Next();
 
-        public T? Current();
+        public T Current();
 
         public int Count { get; }
 

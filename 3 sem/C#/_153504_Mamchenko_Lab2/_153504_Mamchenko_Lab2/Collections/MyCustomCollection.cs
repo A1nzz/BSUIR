@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _153504_Mamchenko_Lab1.Interfaces;
+using _153504_Mamchenko_Lab2.Interfaces;
 
-namespace _153504_Mamchenko_Lab1.Collections
+namespace _153504_Mamchenko_Lab2.Collections
 {
 
     public class Node<T>
@@ -20,7 +21,7 @@ namespace _153504_Mamchenko_Lab1.Collections
         public Node<T>? Prev { get; set; }
 
     }
-    public class MyCustomCollection<T> : ICustomCollection<T>
+    public class MyCustomCollection<T> : ICustomCollection<T>, IEnumerable<T>
     {
         private int _count = 0;
 
@@ -87,39 +88,43 @@ namespace _153504_Mamchenko_Lab1.Collections
             Count++;
         }
 
-        public T? Current()
+        public T Current()
         {
             if (_current == null)
             {
                 throw new InvalidOperationException();
             }
-            return _current!.Data;
+            return _current.Data;
         }
 
         public void Next()
         {
-            if (_current == null)
+            if (_current == _head?.Prev)
+            {
+                _current = _head;
+            } 
+            else if (_current?.Next == null)
             {
                 throw new InvalidOperationException();
+            } else {
+                _current = _current!.Next;
             }
-            if (_current.Next == null)
-            {
-                throw new InvalidOperationException();
-            }
-            _current = _current.Next;
         }
 
         public void Remove(T item)
         {
+            bool isFound = false;
             var current = _head;
             while (current != null)
             {
                 if (current!.Data!.Equals(item))
                 {
+                    isFound = true;
                     if (_current!.Equals(current))
                     {
                         RemoveCurrent();
-                    } else
+                    } 
+                    else
                     {
                         if (current.Prev != null)
                         {
@@ -143,6 +148,7 @@ namespace _153504_Mamchenko_Lab1.Collections
                     
                 }
                 current = current.Next;
+                if (!isFound) { throw new NotFoundObject("Такого объекта не существует!"); };
             }
         }
 
@@ -192,5 +198,44 @@ namespace _153504_Mamchenko_Lab1.Collections
         {
             _current = _head;
         }
+
+        public bool MoveNext()
+        {
+            if (_current == _head?.Prev)
+            {
+                _current = _head;
+                return true;
+            }
+            else if (_current?.Next == null)
+            {
+                return false;
+            }
+            else
+            {
+                _current = _current!.Next;
+                return true;
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node<T>? current = _head;
+            while (current != null)
+            {
+                yield return current.Data;
+                current = current.Next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+    class NotFoundObject : Exception
+    {
+        public NotFoundObject(string message)
+            : base(message) { }
     }
 }
