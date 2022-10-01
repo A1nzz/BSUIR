@@ -1,0 +1,84 @@
+  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       1
+
+                    org $8000 ; abcd*efgh = ab*ef*10000 + ab*gh*100 + cd*ef*100
+.                  + cd*gh
+
+
+  8000 CE 2C 2A     ldx #$2c2a
+  8003 18 CE 7D C5  ldy #$7dc5
+  8007 FF 01 00     stx $100 ; Xh(ab) - $100, Xl(cd) - $101
+  800A 18 FF 01 02  sty $102 ; Yh(ef) - $102, Yl(gh) - $103
+  800E B6 01 01     ldaa $101
+  8011 F6 01 03     ldab $103
+  8014 3D           mul ; cd*gh
+  8015 F7 05 03     stab $503 ;  $500-$503 -
+  8018 B7 06 00     staa $600 ; cd*gh 2
+
+  801B 4F           clra
+  801C 5F           clrb
+  801D B6 01 01     ldaa $101
+  8020 F6 01 02     ldab $102
+  8023 3D           mul ; cd*ef
+  8024 F7 06 01     stab $601 ; cd*ef 2
+  8027 B7 07 00     staa $700 ; cd*ef 3
+
+  802A 4F           clra
+  802B 5F           clrb
+  802C B6 01 00     ldaa $100
+  802F F6 01 03     ldab $103
+  8032 3D           mul ; ab*gh
+  8033 F7 06 02     stab $602 ; ab*gh 2
+  8036 B7 07 01     staa $701 ; ab*gh 3
+
+  8039 4F           clra
+  803A 5F           clrb
+  803B CE 00 00     ldx #$0000
+  803E F6 06 00     ldab $600
+  8041 3A           abx
+  8042 19           daa
+  8043 F6 06 01     ldab $601
+  8046 3A           abx
+  8047 19           daa
+  8048 F6 06 02     ldab $602
+  804B 3A           abx
+  804C 19           daa
+  804D 8F           xgdx
+  804E F7 05 02     stab $502
+  8051 B7 07 02     staa $702 ;     2   3
+
+  8054 4F           clra
+  8055 5F           clrb
+  8056 B6 01 00     ldaa $100
+  8059 F6 01 02     ldab $102
+  805C 3D           mul ; ab*ef
+  805D F7 07 03     stab $703 ; ab*ef 3
+  8060 B7 08 00     staa $800 ; ab*ef 4
+
+  8063 4F           clra
+  8064 5F           clrb
+  8065 CE 00 00     ldx #$0000
+  8068 F6 07 00     ldab $700
+  806B 3A           abx
+  806C 19           daa
+  806D F6 07 01     ldab $701
+  8070 3A           abx
+  8071 19           daa
+  8072 F6 07 02     ldab $702
+  8075 3A           abx
+  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       2
+
+  8076 19           daa
+  8077 F6 07 03     ldab $703
+  807A 3A           abx
+  807B 19           daa
+  807C 8F           xgdx
+  807D F7 05 01     stab $501
+  8080 B7 08 01     staa $801 ;     3   4
+
+  8083 4F           clra
+  8084 5F           clrb
+  8085 BB 08 00     adda $800
+  8088 BB 08 01     adda $801
+  808B 19           daa
+  808C B7 05 00     staa $500
+
