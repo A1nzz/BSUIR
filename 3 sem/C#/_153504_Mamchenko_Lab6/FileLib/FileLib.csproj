@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BaseOutputPath>D:\BSUIR\3 sem\C#\_153504_Mamchenko_Lab6\_153504_Mamchenko_Lab6\bin</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\_153504_Mamchenko_Lab6\_153504_Mamchenko_Lab6.csproj" />
+  </ItemGroup>
+
+</Project>

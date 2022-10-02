@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_153504_Mamchenko_Lab6", "_153504_Mamchenko_Lab6\_153504_Mamchenko_Lab6.csproj", "{DE6C61B7-A57D-4F0E-8799-BB08D8ADF9BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLib", "FileLib\FileLib.csproj", "{389C2A2D-04EC-43AF-A151-7897B036A458}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE6C61B7-A57D-4F0E-8799-BB08D8ADF9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE6C61B7-A57D-4F0E-8799-BB08D8ADF9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE6C61B7-A57D-4F0E-8799-BB08D8ADF9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE6C61B7-A57D-4F0E-8799-BB08D8ADF9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{389C2A2D-04EC-43AF-A151-7897B036A458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{389C2A2D-04EC-43AF-A151-7897B036A458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{389C2A2D-04EC-43AF-A151-7897B036A458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{389C2A2D-04EC-43AF-A151-7897B036A458}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {831FD4F0-CC61-4161-91C1-54BD41690A7E}
+	EndGlobalSection
+EndGlobal
