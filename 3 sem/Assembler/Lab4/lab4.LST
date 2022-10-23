@@ -5,7 +5,7 @@
   8002 CE 80 00     ldx #$8000
   8005 18 CE 82 00  ldy #$8200
                    fill:
-  8009 A6 00        ldaa $0,x
+  8009 A6 00        ldaa $0,x ;    8200
   800B 18 A7 00     staa $0,y
   800E 08           inx
   800F 18 08        iny
@@ -29,6 +29,7 @@
   802B 5A           decb
   802C 26 F0        bne loop
   802E 7E 80 3D     jmp end
+
                    set1:
   8031 1C 00 10     bset $0,x,#%00010000
   8034 7E 80 24     jmp con1
