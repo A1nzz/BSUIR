@@ -17,18 +17,25 @@ namespace _153504_Mamchenko_Lab6
 
             Assembly assembly = Assembly.LoadFrom("FileLib.dll");
             Type? type = assembly.GetType("FileLib.FileService`1")?.MakeGenericType(typeof(Employee));
-
-            object instance = Activator.CreateInstance(type);
             
-            MethodInfo? read = type.GetMethod("ReadFile");
-            MethodInfo? save = type.GetMethod("SaveData");
-
-            save?.Invoke(instance, new object[] { list, "data.json" });
-            read?.Invoke(instance, new object[] { "data.json" });
-
-            foreach (var item in list)
+            if(type != null)
             {
-                Console.WriteLine($"{item.Name} {item.Salary} {item.IsFree}");
+                object instance = Activator.CreateInstance(type);
+
+                MethodInfo? read = type.GetMethod("ReadFile");
+                MethodInfo? save = type.GetMethod("SaveData");
+
+                save?.Invoke(instance, new object[] { list, "data.json" });
+                read?.Invoke(instance, new object[] { "data.json" });
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine($"{item.Name} {item.Salary} {item.IsFree}");
+                }
+            } 
+            else
+            {
+                Console.WriteLine("Невозможнополучить тип(null)");
             }
         }
     }

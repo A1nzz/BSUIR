@@ -19,6 +19,7 @@ namespace _153504_Mamchenko_Lab4
                 }
 
             }
+            
         }
         
         public void SaveData(IEnumerable<T> data, string fileName)

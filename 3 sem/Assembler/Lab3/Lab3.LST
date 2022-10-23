@@ -1,0 +1,12 @@
+  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       1
+
+                    org $8000
+  8000 86 0F        ldaa #%00001111
+  8002 49           rola
+  8003 89 00        adca #0
+  8005 49           rola
+  8006 89 00        adca #0
+  8008 49           rola
+  8009 89 00        adca #0
+  800B 49           rola
+  800C 89 00        adca #0

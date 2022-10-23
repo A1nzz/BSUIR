@@ -1,0 +1,48 @@
+  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       1
+
+                    org $8000
+  8000 C6 80        ldab #128
+  8002 CE 80 00     ldx #$8000
+  8005 18 CE 82 00  ldy #$8200
+                   fill:
+  8009 A6 00        ldaa $0,x
+  800B 18 A7 00     staa $0,y
+  800E 08           inx
+  800F 18 08        iny
+  8011 5A           decb
+  8012 26 F5        bne fill
+
+  8014 86 20        ldaa #%00100000
+  8016 B7 82 00     staa $8200
+  8019 CE 82 00     ldx #$8200
+  801C C6 FF        ldab #$ff
+                   loop:
+  801E 86 20        ldaa #%00100000
+  8020 A4 00        anda $0,x
+  8022 26 0D        bne set1
+                   con1:
+  8024 86 04        ldaa #%00000100
+  8026 A4 00        anda $0,x
+  8028 26 0D        bne set2
+                   con2:
+  802A 08           inx
+  802B 5A           decb
+  802C 26 F0        bne loop
+  802E 7E 80 3D     jmp end
+                   set1:
+  8031 1C 00 10     bset $0,x,#%00010000
+  8034 7E 80 24     jmp con1
+                   set2:
+  8037 1C 00 10     bset $0,x,#%00010000
+  803A 7E 80 2A     jmp con2
+                   end:
+
+  Symbol Table 
+
+  SET1               8031
+  SET2               8037
+  END                803D
+  CON1               8024
+  CON2               802A
+  FILL               8009
+  LOOP               801E
