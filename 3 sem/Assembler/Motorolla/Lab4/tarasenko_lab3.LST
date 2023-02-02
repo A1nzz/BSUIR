@@ -1,0 +1,46 @@
+  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       1
+
+                   A equ %10101111
+                   B equ %10000101
+  C000 86 AF        ldaa #A
+  C002 C6 85        ldab #B
+  C004 18 FF 80 10  sty $8010
+  C008 18 ED 00     std 0,y
+  C00B 18 1D 00 0F  bclr 0,y,%00001111  ;
+  C00F 18 A6 00     ldaa 0,y
+  C012 CE 00 04     ldx #4 ;
+                   B_SHIFT:
+  C015 54           lsrb
+  C016 09           dex
+  C017 26 FC        bne B_SHIFT
+  C019 1B           aba  ;
+  C01A B7 80 05     staa $8005
+                   HIGH equ $8005  ;  ,  a
+  C01D 86 AF        ldaa #A
+  C01F C6 85        ldab #B
+  C021 18 ED 00     std 0,y
+  C024 18 1D 01 F0  bclr 1,y,%11110000  ;
+  C028 18 E6 01     ldab 1,y
+  C02B CE 00 04     ldx #4 ;
+                   A_SHIFT:
+  C02E 48           lsla
+  C02F 09           dex
+
+  C030 26 FC        bne A_SHIFT
+  C032 1B           aba  ;
+  C033 B7 80 06     staa $8006
+                   LOW equ $8006  ;   LOW   HIGH
+  C036 B6 80 05     ldaa HIGH
+  C039 F6 80 06     ldab LOW
+  C03C 8F           xgdx  ;
+  C03D 86 AF        ldaa #A  ;     :
+  C03F C6 85        ldab #B
+
+  Symbol Table 
+
+  LOW                8006
+  A_SHIFT            C02E
+  HIGH               8005
+  A                  00AF
+  B                  0085
+  B_SHIFT            C015

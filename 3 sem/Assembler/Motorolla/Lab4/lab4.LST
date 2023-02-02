@@ -1,4 +1,4 @@
-  ADDR B1 B2 B3 B4 thrass11.tmp                                     PAGE       1
+  ADDR B1 B2 B3 B4 D:\BSUIR\3 sem\Assembler\Lab4\lab4.asm           PAGE       1
 
                     org $8000
   8000 C6 80        ldab #128

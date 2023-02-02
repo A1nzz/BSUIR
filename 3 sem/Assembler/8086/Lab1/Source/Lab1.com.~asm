@@ -1,0 +1,15 @@
+.model tiny
+.code
+org  100h    ; set location counter to 100h
+start:
+mov ah,9
+mov dx,offset message
+int 21h
+mov dx,offset message2
+int 21h
+ret
+message db 'Hello World!',0Dh,0Ah,'$'
+message2 db 'Hi!$'
+end start
+
+

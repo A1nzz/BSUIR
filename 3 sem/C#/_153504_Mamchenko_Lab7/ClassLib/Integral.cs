@@ -14,6 +14,9 @@ namespace ClassLib
 
         private Semaphore semaphore = new Semaphore(2, 2);
 
+        private object locker = new();
+
+
         public double FindIntegral()
         {
             semaphore.WaitOne();
@@ -41,7 +44,7 @@ namespace ClassLib
         }
         public void ShowProgress(object sender, int percent)
         {
-            Console.SetCursorPosition(0, Thread.CurrentThread.ManagedThreadId);
+      
             int number_of_signs = percent;
             string progress = "[";
             for (int i = 0; i < 100; i++)
@@ -61,7 +64,12 @@ namespace ClassLib
             }
             progress += "] ";
             progress += percent.ToString() + "%";
-            Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}:{progress}");
+            lock (locker)
+            {
+                Console.SetCursorPosition(0, Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}:{progress}");
+            }
+         
         }
     }
 }

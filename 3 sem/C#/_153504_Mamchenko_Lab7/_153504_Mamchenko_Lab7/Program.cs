@@ -5,16 +5,16 @@ namespace _153504_Mamchenko_Lab7
 {
     class Program
     {
-        private static (int x, int y)lastPos;
         static void Main(string[] args)
         {
 
-            int y = 0;
+            int y = 1;
             Integral integral = new Integral();
             integral.GetTime += (message) => {
                 Console.SetCursorPosition(0,y);
                 y++;
-                Console.WriteLine(message); };
+                Console.WriteLine(message); 
+            };
             Thread myThread1 = new Thread(() => integral.FindIntegral());
             myThread1.Priority = ThreadPriority.Highest;
             myThread1.Start();
